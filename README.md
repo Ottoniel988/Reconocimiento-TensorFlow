@@ -180,17 +180,19 @@ Ya que tenemos todas la imágenes con sus respectivos XML marcando sus coordenad
 Antes de empezar, vamos a duplicar nuestras imágenes, haremos dos carpetas llamadas ‘img_test’ e ‘img_entrenamiento’ en la primera pondremos alrededor del 10% de nuestras imagenes con sus respectivos XMLs y en la segunda el 90% restante. (DUPLICAREMOS LAS IMÁGENES, ES DECIR QUE EN LA CARPETA DE IMÁGENES SEGUIREMOS TENIENDO EL 100% DE LAS IMÁGENES)
 Ya que tenemos las imágenes en esta estructura ahora en nuestra terminal (cmd en windows o bash en ubuntu) nos posicionamos en la carpeta ‘deteccion-de-objetos/object_detection’ y ejecutaremos el siguiente comando. (si no corremos este comando al correr los siguientes comandos nos encontraremos con el error que nuestro python no encuentra la paqueteria ‘object_detection’
 
-export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+### export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
  
 Después nos regresamos a la carpeta raíz del repositorio que clonamos de GitHub (deteccion-de-objetos) y ejecutamos los siguientes cuatros comandos.
 
-python xml_a_csv.py --inputs=img_test --output=test
+### python xml_a_csv.py --inputs=img_test --output=test
 
-python xml_a_csv.py --inputs=img_entrenamiento --output=entrenamiento
+### python xml_a_csv.py --inputs=img_entrenamiento --output=entrenamiento
 
-python csv_a_tf.py --csv_input=CSV/test.csv --output_path=TFRecords/test.record --images=images
+### python csv_a_tf.py --csv_input=CSV/test.csv --output_path=TFRecords/test.record --images=images
 
-python csv_a_tf.py --csv_input=CSV/entrenamiento.csv --output_path=TFRecords/entrenamiento.record --images=images
+### python csv_a_tf.py --csv_input=CSV/entrenamiento.csv --output_path=TFRecords/entrenamiento.record --images=images
+
+
 Suponiendo que los scripts corrieron sin problema debemos tener ahora una carpeta llamada TFRecords en la cual tendremos dos archivos, entrenamiento.record y test.record  Estos dos archivos ya contienen la información de todas las imágenes y de las coordenadas de los objetos que marcamos.
 
 Ya con esto listo pasaremos a preparar los archivos necesarios para nuestro entrenamiento y al entrenamiento del modelo que deseemos.
@@ -203,10 +205,10 @@ Antes de empezar, debemos decidir que modelo es el que querremos entrenar, algun
 
 Al descargarlo encontraremos varios archivos, los que nos interesan para entrenar un modelo desde cero son:
 
-faster_rcnn_resnet101_coco.config (configuración sobre cómo entrenaremos el modelo)
-Model.ckpt.index
-Model.ckpt.meta
-Model.ckpt.data-000000-of-00001
+### faster_rcnn_resnet101_coco.config (configuración sobre cómo entrenaremos el modelo)
+### Model.ckpt.index
+### Model.ckpt.meta
+### Model.ckpt.data-000000-of-00001
  
 
 Tomemos los archivos con el formato ‘xxxx.ckpt.yyyy’ al igual que el XXXX.config y pasarlos a la carpeta llamada ‘modelo’ dentro de nuestro proyecto.
@@ -257,7 +259,8 @@ Payaso
 Sandalia
  
 
-#Configuración de entrenamiento (faster_rcnn_resnet101_coco.config)
+# Configuración de entrenamiento (faster_rcnn_resnet101_coco.config)
+
 Todos los archivos que hemos editado tienen un grado de importancia, pero si fuera a elegir uno como favorito seria este. Si hemos seguido el tutorial este es el archivo que debemos tener en la carpeta de ‘modelo’
 
 Este archivo es el que nuestro script para entrenamiento va a leer para saber parámetros sumamente importantes, tales como:
@@ -327,7 +330,7 @@ Excelente, ya estamos ahora en la parte más interesante, vamos a empezar a entr
 
  
 
-python object_detection/train.py --logtostderr --train_dir=train --pipeline_config_path=modelo/faster_rcnn_resnet101_coco.config
+### python object_detection/train.py --logtostderr --train_dir=train --pipeline_config_path=modelo/faster_rcnn_resnet101_coco.config
  
 
 Si todo ha salido bien veremos en nuestra terminal algo similar a esto:
@@ -352,7 +355,9 @@ Para esto, solo debemos correr un comando, la parte STEP_NUMBER debemos de cambi
 
  
 
-python object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path modelo/faster_rcnn_resnet101_coco.config  --trained_checkpoint_prefix train/model.ckpt-684 --output_directory modelo_congelado
+### python object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path  modelo/faster_rcnn_resnet101_coco.config  --trained_checkpoint_prefix train/model.ckpt-684 --output_directory modelo_congelado
+
+
 Después de haber corrido esto con éxito tendremos un archivo en una carpeta llamada ‘modelo_congelado’, este ya es nuestro archivo listo para generar predicciones.
 
 # Prediccion
@@ -362,7 +367,7 @@ Listo, hemos llegado al final, espero que todos hayan llegado hasta aquí sin pr
 
  
 
-python object_detection/object_detection_runner.py
+### python object_detection/object_detection_runner.py
  
 
 LISTO! Ya tenemos nuestras imágenes con predicciones.
