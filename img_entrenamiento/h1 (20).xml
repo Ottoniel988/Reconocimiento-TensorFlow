@@ -1,0 +1,26 @@
+<annotation>
+	<folder>imagenes</folder>
+	<filename>h1 (20).jpg</filename>
+	<path>C:\Users\Saenz_16\Downloads\imagenes\h1 (20).jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>292</width>
+		<height>172</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>herpes</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>133</xmin>
+			<ymin>75</ymin>
+			<xmax>171</xmax>
+			<ymax>114</ymax>
+		</bndbox>
+	</object>
+</annotation>
